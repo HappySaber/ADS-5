@@ -19,7 +19,7 @@ const bool isOperand(char ch) {
 std::string infx2pstfx(std::string inf) {
   TStack<char, 100> stack1;
   std::string s = "";
-  for (int i = 0.; i < inf.length(); i++) {
+  for (int i = 0; i < inf.length(); i++) {
     if ((inf[i] >= '0') && (inf[i] <= '9')) {
       s += inf[i];
       s += " ";
