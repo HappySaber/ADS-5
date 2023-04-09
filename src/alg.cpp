@@ -26,7 +26,8 @@ std::string infx2pstfx(std::string inf) {
     } else if (inf[i] == '(') {
       stack1.push(inf[i]);
     } else if (isOperand(inf[i])) {
-        while (stack1.isEmpty() == 0 && getPrior(inf[i]) <= getPrior(stack1.getValue())) {
+        while (stack1.isEmpty() == 0 &&
+               getPrior(inf[i]) <= getPrior(stack1.getValue())) {
             s += stack1.getValue();
             s += " ";
             stack1.pop();
@@ -54,27 +55,23 @@ int eval(std::string pref) {
   TStack<int, 100> stack2;
   int k, l ,g;
   for (int i = 0; i < pref.length(); i++) {
-    if (pref[i] == ' ')
+    if (pref[i] == ' ') {
       continue;
-    else if (pref[i] >= '0' && pref[i] <= '9') {
+    }else if (pref[i] >= '0' && pref[i] <= '9') {
       k = pref[i] - '0';
       stack2.push(k);
-    } else
-      if (pref[i] == '+' || pref[i] == '-' ||
+    } else if (pref[i] == '+' || pref[i] == '-' ||
           pref[i] == '*' || pref[i] == '/') {
       l = stack2.getValue();
       stack2.pop();
       g = stack2.getValue();
       stack2.pop();
       if (pref[i] == '+') stack2.push(g + l);
-      else
-        if (pref[i] == '-')
+      else if (pref[i] == '-')
         stack2.push(g - l);
-      else
-        if (pref[i] == '*')
+      else if (pref[i] == '*')
         stack2.push(g * l);
-      else
-        if (pref[i] == '/')
+      else if (pref[i] == '/')
         stack2.push(g / l);
     }
         
