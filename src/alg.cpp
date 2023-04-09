@@ -73,7 +73,7 @@ int eval(std::string pref) {
         stack2.push(g * l);
       else if (pref[i] == '/')
         stack2.push(g / l);
-    }    
+    }
   }
   return stack2.getValue();
 }
