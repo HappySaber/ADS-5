@@ -53,11 +53,11 @@ std::string infx2pstfx(std::string inf) {
 
 int eval(std::string pref) {
   TStack<int, 100> stack2;
-  int k, l ,g;
+  int k, l, g;
   for (int i = 0; i < pref.length(); i++) {
     if (pref[i] == ' ') {
       continue;
-    }else if (pref[i] >= '0' && pref[i] <= '9') {
+    } else if (pref[i] >= '0' && pref[i] <= '9') {
       k = pref[i] - '0';
       stack2.push(k);
     } else if (pref[i] == '+' || pref[i] == '-' ||
@@ -73,8 +73,7 @@ int eval(std::string pref) {
         stack2.push(g * l);
       else if (pref[i] == '/')
         stack2.push(g / l);
-    }
-        
+    }    
   }
   return stack2.getValue();
 }
