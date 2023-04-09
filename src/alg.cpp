@@ -3,7 +3,7 @@
 #include <map>
 #include "tstack.h"
 
-nt getPrior(char ch) {
+int getPrior(char ch) {
   if (ch == '(') return 0;
   if (ch == ')') return 1;
   if ((ch == '+') || (ch == '-')) return 2;
