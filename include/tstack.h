@@ -22,7 +22,7 @@ class TStack {
       return arr[top--];
   }
   void push(T val) {
-    if (top == size - 1)
+    if (isFull())
       throw std::string("Stack is full");
     else
       arr[++top] = val;
