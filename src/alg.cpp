@@ -26,7 +26,7 @@ std::string infx2pstfx(std::string inf) {
     } else if (inf[i] == '(') {
       stack1.push(inf[i]);
     } else if (isOperand(inf[i])) {
-        while (stack1.isEmpty() == 0 &&
+        while (!stack1.isEmpty() &&
                getPrior(inf[i]) <= getPrior(stack1.getValue())) {
             s += stack1.getValue();
             s += " ";
@@ -34,7 +34,7 @@ std::string infx2pstfx(std::string inf) {
         }
         stack1.push(inf[i]);
     } else if (inf[i] == ')') {
-        while (stack1.isEmpty() == 0 && stack1.getValue() != '(') {
+        while (!stack1.isEmpty() && stack1.getValue() != '(') {
         s += stack1.getValue();
         s += " ";
         stack1.pop();
@@ -42,7 +42,7 @@ std::string infx2pstfx(std::string inf) {
       stack1.pop();
     }
   }
-  while (stack1.isEmpty() == 0) {
+  while (!stack1.isEmpty()) {
     s += stack1.getValue();
     s += " ";
     stack1.pop();
