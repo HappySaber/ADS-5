@@ -3,18 +3,16 @@
 #include <map>
 #include "tstack.h"
 
-int getPrior(char ch) {
-  switch (ch) {
-    case '(':
-      return 0;
-    case ')':
-      return 1;
-    case '+': case '-':
-      return 2;
-    case '*': case '/':
-      return 3;
-  }
+nt getPrior(char ch) {
+  if (ch == '(') return 0;
+  if (ch == ')') return 1;
+  if ((ch == '+') || (ch == '-')) return 2;
+  if ((ch == '*') || (ch == '/')) return 3;
   return -1;
+}
+const bool isOperand(char ch) {
+  if (ch == '+' || ch == '-' || ch == '*' || ch == '/') return 1;
+  return 0;
 }
 
 
@@ -27,7 +25,7 @@ std::string infx2pstfx(std::string inf) {
       s += " ";
     } else if (inf[i] == '(')
       stack1.push(inf[i]);
-    else if (inf[i] == '+' || inf[i] == '+' || inf[i] == '*' || inf[i] == '/') {
+    else if (isOperand(inf[i])) {
         while (!stack1.isEmpty() && getPrior(inf[i]) <= getPrior(stack1.getValue())) {
             s += stack1.getValue();
             s += " ";
