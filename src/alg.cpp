@@ -17,38 +17,38 @@ const bool isOperand(char ch) {
 
 
 std::string infx2pstfx(std::string inf) {
-  TStack<char, 100> stack1;
-  std::string s = " ";
-  for (int i = 0; i < inf.length(); i++) {
-    if ((inf[i] >= '0') && (inf[i] <= '9')) {
-      s += inf[i];
-      s += " ";
-    } else if (inf[i] == '(')
-      stack1.push(inf[i]);
-    else if (isOperand(inf[i])) {
-        while (!stack1.isEmpty() && getPrior(inf[i]) <= getPrior(stack1.getValue())) {
-            s += stack1.getValue();
-            s += " ";
+    TStack<char, 100> stack1;
+    std::string output = "";
+    for (int i = 0; i < inf.length(); i++) {
+        if (inf[i] >= '0' && inf[i] <= '9') {
+            output += inf[i];
+            output += " ";
+        } else if (inf[i] == '(') {
+            stack1.push(inf[i]);
+        } else if (isOperation(inf[i])) {
+            while (stack1.isEmpty() == 0 &&
+                getPrior(inf[i]) <= getPrior(stack1.getTop())) {
+                output += stack1.getTop();
+                output += " ";
+                stack1.pop();
+            }
+            stack1.push(inf[i]);
+        } else if (inf[i] == ')') {
+            while (stack1.isEmpty() == 0 && stack1.getTop() != '(') {
+                output += stack1.getTop();
+                output += " ";
+                stack1.pop();
+            }
             stack1.pop();
         }
-        stack1.push(inf[i]);
     }
-    else if (inf[i] == ')') {
-        while (!stack1.isEmpty() && getPrior(stack1.getValue()) != '(') {
-        s += stack1.getValue();
-        s += " ";
+    while (stack1.isEmpty() == 0) {
+        output += stack1.getTop();
+        output += " ";
         stack1.pop();
-      }
-//      stack1.push(inf[i]);
     }
-  }
-  while (!stack1.isEmpty()) {
-    s += stack1.getValue();
-    s += " ";
-    stack1.pop();
-  }
-  s.pop_back();
-  return s;
+    output.pop_back();
+    return output;
 }
 
 int eval(std::string pref) {
