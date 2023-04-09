@@ -49,7 +49,7 @@ std::string infx2pstfx(std::string inf) {
     s += " ";
     stack1.pop();
   }
-  s.erase(s.length() - 1);
+  s.pop_back();
   return s;
 }
 
