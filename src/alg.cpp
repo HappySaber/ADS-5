@@ -3,6 +3,18 @@
 #include <map>
 #include "tstack.h"
 
+int getPrior(char ch) {
+  switch (ch) {
+    case '(':
+      return 0;
+    case '+': case '-':
+      return 1;
+    case '*': case '/':
+      return 2;
+  }
+  return -1;
+}
+
 std::string infx2pstfx(std::string inf) {
   TStack<char, 100> stack1;
   std::string s = "";
