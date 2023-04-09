@@ -38,6 +38,7 @@ std::string infx2pstfx(std::string inf) {
         s += " ";
         stack1.pop();
       }
+      stack1.pop();
     }
   }
   while (stack1.isEmpty() == 0) {
