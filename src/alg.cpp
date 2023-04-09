@@ -17,6 +17,7 @@ int getPrior(char ch) {
   return -1;
 }
 
+
 std::string infx2pstfx(std::string inf) {
   TStack<char, 100> stack1;
   std::string s = "";
@@ -24,31 +25,24 @@ std::string infx2pstfx(std::string inf) {
     if ((inf[i] >= '0') && (inf[i] <= '9')) {
       s += inf[i];
       s += " ";
-    } else
-      if (inf[i] == '(')
+    } else if (inf[i] == '(')
       stack1.push(inf[i]);
-    else
-      if (inf[i] == ')') {
-      while (!stack1.isEmpty() &&
-             getPrior(stack1.getValue()) >= getPrior(inf[i])) {
+    else if (inf[i] == '+' || inf[i] == '+' || inf[i] == '*' || inf[i] == '/') {
+        while (!stack1.isEmpty() && getPrior(inf[i]) <= getPrior(stack1.getValue())) {
+            s += stack1.getValue();
+            s += " ";
+            stack1.pop();
+        }
+        stack1.push(inf[i]);
+    }
+    else if (inf[i] == ')') {
+        while (!stack1.isEmpty() && getPrior(stack1.getValue()) != '(') {
         s += stack1.getValue();
         s += " ";
         stack1.pop();
       }
-      stack1.push(inf[i]);
+//      stack1.push(inf[i]);
     }
-    else
-      if (inf[i] == '+' || inf[i] == '+' ||
-          inf[i] == '*' || inf[i] == '/') {
-      while (!stack1.isEmpty() &&
-             getPrior(inf[i]) <= getPrior(stack1.getValue())) {
-        s += stack1.getValue();
-        s += " ";
-        stack1.pop();
-      }
-      stack1.push(inf[i]);
-    }
-
   }
   while (!stack1.isEmpty()) {
     s += stack1.getValue();
